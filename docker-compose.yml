@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+    webserver:
+        build: ./bin/webserver
+        container_name: 'urbano_web'
+        ports: 
+            - "9080:80"
+        volumes:
+            - ./www:/var/www/html/
+        command: bash -c "git clone https://github.com/skinet22/urbano.git"
+        networks:
+            - default
+            
+    mysql:
+        build: ./bin/mysql
+        container_name: 'urbano_mysql'
+        # restart: 'always'
+        ports:
+            - "3306:3306"
+        volumes:
+            - ${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql
+            - ${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql
+            - ./mysql-dump:/docker-entrypoint-initdb.d
+        environment:
+            MYSQL_ROOT_PASSWORD: Hydra1302
+            MYSQL_DATABASE: urbano_test
+            MYSQL_USER: urbano_test
+            MYSQL_PASSWORD: Circinus93
+
+    phpmyadmin:
+        build: ./bin/phpmyadmin
+        container_name: 'urbano_phpmyadmin'
+        links:
+            - mysql
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+        ports:
+            - '9081:80'
+        volumes:
+            - /sessions
+
+
