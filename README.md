@@ -1,5 +1,13 @@
 # Urbano_server
 Servidor Urbano APP
+
+
+Requerimientos docker
+docker version: >= 19.03
+
+Requerimientos App: 
+PHP V >= 7.2
+MYSQL>= 8.x o Mariadb >= 10.x
  
 Para Instalar APP
  
@@ -19,6 +27,7 @@ pass:Circinus93
 
 Demo
 http://www.testeame.com.ar:9080/
+
 
 
  
